@@ -499,6 +499,22 @@ aiddata_red %>%
                                      size = 15), 
         legend.title = element_blank(), 
         legend.position = "bottom") + 
-  guides(fill = guide_legend(nrow = 1)) 
+  guides(fill = guide_legend(nrow = 1))
 ```
 
+The styling we we have resorted to for our plotting today, is just one of infinite options for how to make your data visually appealing. In the following you might want to try to develop your very own style. 
+Feel free to again visualize over-time variance in financing activities that have a clear-cut development `intent` between 2010 and 2017 by `region`. 
+
+```{r}
+aiddata_red %>%
+  filter(intent == "Development", 
+         region != "Multi-Region", 
+         commitment_year >= "2010-01-01") %>%
+  group_by(commitment_year, region) %>%
+  summarise(amount_bn_dev = sum(amount_bn)) %>%
+# Here begins the actual plotting
+ ggplot(aes(x = commitment_year,
+             y = amount_bn_dev,
+             color = region)) +
+  geom_line()
+```
