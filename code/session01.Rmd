@@ -502,7 +502,7 @@ aiddata_red %>%
   guides(fill = guide_legend(nrow = 1))
 ```
 
-The styling we we have resorted to for our plotting today, is just one of infinite options for how to make your data visually appealing. In the following you might want to try to develop your very own style. 
+The styling we we have resorted to for our plotting today is just one out of infinite options for how to make your data visually appealing. In the following you might want to try to develop your very own style. 
 Feel free to again visualize over-time variance in financing activities that have a clear-cut development `intent` between 2010 and 2017 by `region`. 
 
 ```{r}
