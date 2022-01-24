@@ -1,8 +1,7 @@
 ---
-title: "Data Visualization with R - Session 1/2"
+title: "Data Visualization with R"
 authors: "Zoé Wolter, Valentin Geier"
-date: "11.01.2022"
-date:
+date: "26.01.2022"
 ---
 
 In the following, we will explore how to visualize data in R using the `ggplot2`-package.
@@ -13,11 +12,11 @@ In the following, we will explore how to visualize data in R using the `ggplot2`
 
 Before we start, we need to load some packages that we will need for the visualizations.
 
-- tidyverse: The `tidyverse`-package contains the core packages that belong to the tidyverse, including `dplyr` (for data manipulation) and `ggplot2`.
-- readxl: The `reaxl`-package also belongs to the tidyverse and enables us to conveniently import Excel-files (.xls and .xlsx).
-- lubridate: `lubridate` is another tidyverse-Package that makes working with date-time data a lot easier.
-- RColorBrewer: The `RColorBrewer`-package is one of the best and most famous options to create color palettes for different purposes. There is also a handy website that helps with choosing palettes for different purposes: https://colorbrewer2.org/.   
-- ggthemes: The `ggthemes`-package contains some beautiful additional themes, such as those used by 'The Economist' or 'The Wall Street Journal'.
+- `tidyverse`: The `tidyverse`-package contains the core packages that belong to the tidyverse, including `dplyr` (for data manipulation) and `ggplot2`.
+- `readxl`: The `reaxl`-package also belongs to the tidyverse and enables us to conveniently import Excel-files (.xls and .xlsx).
+- `lubridate`: `lubridate` is another tidyverse-Package that makes working with date-time data a lot easier.
+- `RColorBrewer`: The `RColorBrewer`-package is one of the best and most famous options to create color palettes for different purposes. There is also a handy website that helps with choosing palettes for different purposes: https://colorbrewer2.org/.   
+- `ggthemes`: The `ggthemes`-package contains some beautiful additional themes, such as those used by 'The Economist' or 'The Wall Street Journal'.
 
 ```{r}
 pacman::p_load(tidyverse, readxl, lubridate, RColorBrewer, ggthemes)
@@ -70,10 +69,10 @@ aiddata_yearly <- aiddata_red %>%
   group_by(commitment_year) %>%
 # First, we calculate the number of projects by year 
   summarise(n_projects = n(),
-# Then, we calculate the total amount of development financing the Cinese government committed to spending per year
-            amount_bn_total = sum(amount),
+# Then, we calculate the total amount of development financing the Chinese government committed to spending per year
+            amount_bn_total = sum(amount_bn),
 # And lastly, we calculate the mean amount of development finance committed to per year
-            amount_bn_mean = mean(amount))
+            amount_bn_mean = mean(amount_bn))
 ```
 
 # 2. First steps
@@ -87,12 +86,12 @@ aiddata_yearly %>%
   ggplot()
 ```
 
-This code chunk creates a blank canvas in the 'Plots' panel of RStudio, since we have yet to specify the arguments to be used for the plotting. 
-We can do this by specifying the `mapping` argument using the `aes()` helper function.
+This code chunk creates a blank canvas in the 'Plots' panel of RStudio, since we have yet to indicate the arguments to be used for the plotting. 
+We do this by specifying the `mapping` argument using the `aes()` helper function.
 
 # 2.2 Specifying the parameters
 
-We now want the x-values of the plot to indicate the year in which the Chinese government committed to delivering the aid finances (`commitment_year`), and the y-values to represent the number of projects the Chinese government committed to finance (`n_projects`).
+We now want the x-values of the plot to indicate the year in which the Chinese government committed to delivering the aid financing (`commitment_year`), and the y-values to represent the number of projects the Chinese government committed to (`n_projects`).
 
 ```{r}
 aiddata_yearly %>% 
@@ -132,7 +131,7 @@ Both the bar plot as well as the line plots show an upward trend in the number o
 
 # 2.3.3 Line plots with geom_line und geom_smooth
 
-With `geom_line` we can visualize a simple line plot, since the function connects observations in order of the variable on the x-axis. In turn, `geom_smooth` displays smoothed conditional means that can help us to identify trends in data. By default, it also shows confidence intervals - these can be omitted using the `se = FALSE`- command.
+With `geom_line` we can visualize a simple line plot, since the function connects observations in order of the variable on the x-axis. Beyond, `geom_smooth` displays smoothed conditional means that can help us to identify trends in data. By default, it also shows confidence intervals - these can be omitted using the `se = FALSE`- command.
 
 ```{r}
 aiddata_yearly %>% 
@@ -169,7 +168,7 @@ aiddata_yearly %>%
   geom_smooth(se = FALSE)
 ```
 
-If you have finished early, feel free play around with some other geometric shapes. To have a glimpse at all the possibilities ggplot2 offers, take a look at the 'Cheatsheet' provided in the folder.
+If you have finished early, feel free to play around with some other geometric shapes. To have a glimpse at all the possibilities ggplot2 offers, take a look at the 'Cheatsheet' provided in the folder.
 
 ```{r}
 # Maybe step plot could be a handy visualization for the association between year and project number?
@@ -190,7 +189,7 @@ aiddata_yearly %>%
 
 # 3.1 Adding information 
 
-We now turn to a more fine-grained version of the data set provided by AidData which, besides the sole number of projects or the amount of aid, contains quite some interesting additional information such as the recipient, the recipient region, the intent or the targeted sector.
+We now turn to a more fine-grained version of the data set provided by AidData which, besides the sole number of projects or the amount of aid, contains quite some interesting additional information such as the recipient, the recipient region, the intent and the targeted sector.
 
 # 3.1.1 Colors
 
@@ -256,7 +255,7 @@ theme_minimal()
 
 # 3.2.3 Manually adjusting the theme
 
-Despite using `theme_minimal()`, there remain a number of tweaks that could make our plot look even nicer. We can thus specify `theme()` AFTER `theme_minimal()` to make some manual adjustments. These include changes to the look of both title (`plot.title`) and subtitle(`plot-subtitle`), the removal of the legend title (`legend.title`) and it's relocation (`legend.position`) to the bottom of the plot. To simply omit (NON-DATA) components of the plot, we use `element_blank`, while making changes to text components requires the command `element_text`.
+Despite using `theme_minimal()`, there remain a number of tweaks that could make our plot look even nicer. We can thus specify `theme()` AFTER `theme_minimal()` to make some manual adjustments. These include changes to the look of both title (`plot.title`) and subtitle(`plot-subtitle`), the removal of the legend's title (`legend.title`) and it's relocation (`legend.position`) to the bottom of the plot. To simply omit (NON-DATA) components of the plot, we use `element_blank`, while making changes to text components requires the command `element_text`.
 
 ```{r}
 aiddata_red %>% 
@@ -291,15 +290,15 @@ aiddata_red %>%
              fill = sector)) + 
 # Specify the geometric shape to be used for the plot (bar plot)
   geom_col() + 
-# Now, specify the axis titles (x and y) as well as title, subtitle and caption (careful: now the colors no longer      represent regions, but the sector of the aid transfer)
+# Now, specify the axis titles (x and y) as well as title, subtitle and caption (careful: now the colors no longer represent regions, but the sector of the aid transfer)
   labs(x = "Year",
        y = "Aid (in billion 2017 US$)",
        title = "Chinese development financing",
-       subtitle = "By region between 2000 and 2017",
+       subtitle = "By sector between 2000 and 2017",
        caption = "Source: AidData (2021)") +
 # Select a theme that builds the basis for our polishing
   theme_minimal() +
-# Now, refine the look of the title, the subtitle and the axis titles (hint: 'axis.title ='), omit the legend title     and place the legend at the bottom of the plot
+# Now, refine the look of the title, the subtitle and the axis titles (hint: 'axis.title ='), omit the legend title and place the legend at the bottom of the plot
   theme(plot.title = element_text(face = "bold", size = 30), 
         plot.subtitle = element_text(face = "italic", size = 15),
         legend.title = element_blank(), 
@@ -321,7 +320,7 @@ aiddata_red %>%
   labs(x = "Year",
        y = "Aid (in billion 2017 US$)",
        title = "Chinese development financing",
-       subtitle = "By region between 2000 and 2017",
+       subtitle = "By sector between 2000 and 2017",
        caption = "Source: AidData (2021)") +
   theme_wsj() +
   theme(plot.title = element_text(face = "bold", size = 30), 
@@ -340,7 +339,7 @@ aiddata_red %>%
   labs(x = "Year",
        y = "Aid (in billion 2017 US$)",
       title = "Chinese development financing",
-       subtitle = "By region between 2000 and 2017",
+       subtitle = "By sector between 2000 and 2017",
        caption = "Source: AidData (2021)") +
   theme_wsj() +
   theme(plot.title = element_text(face = "bold", size = 25), 
@@ -464,7 +463,7 @@ aiddata_red %>%
                                      size = 15), 
         legend.title = element_blank(), 
         legend.position = "bottom") + 
-  guides(fill = guide_legend(nrow = 1))
+  guides(color = guide_legend(nrow = 1))
 
 # Possible solution
 aiddata_red %>%
@@ -499,7 +498,7 @@ aiddata_red %>%
                                      size = 15), 
         legend.title = element_blank(), 
         legend.position = "bottom") + 
-  guides(fill = guide_legend(nrow = 1))
+  guides(color = guide_legend(nrow = 1))
 ```
 
 The styling we we have resorted to for our plotting today is just one out of infinite options for how to make your data visually appealing. In the following you might want to try to develop your very own style. 
