@@ -2,21 +2,19 @@
 
 # CorrelAidXKonstanz-DataVisualization
 
-Herzlich Willkommen zu unserem Workshop zur **Datenvisualisierung mit R**!
+Welcome to our workshop on **data visualization with R**!
 
 ## Download
-- Die Materialien zum Workshop können [hier](https://github.com/ZoeWolter/CorrelAidXKonstanz-DataVisualization/archive/main.zip) heruntergeladen werden.
-- Danach die Datei entzippen und in dem Ordner speichern, wo das R-Projekt abgelegt werden soll.
-- Öffnen des R-Projekts über die Datei *data-visualization.Rproj*
+- You can download all the material for the workshop [here](https://github.com/ZoeWolter/CorrelAidXKonstanz-DataVisualization/archive/main.zip) heruntergeladen werden.
+- Unzip the folder and store it in the folder you want to have your R project in.
+- Open the R porject via the file *data-visualization.Rproj*
 
 ## Workshop
 
-**Tag 1:**
-- Top1 
-- Top2
-- Top3
-
-**Tag 2:**
-- Top1
-- Top2
-- Top3
+- Data preprocessing
+- First steps and layers when using ggplot2
+- Different types of plots: barplot, scatterplot, lineplot
+- Colors and facets
+- Themes and labels
+- Altering scales
+- Hands-on session using data from OpenData Konstanz
