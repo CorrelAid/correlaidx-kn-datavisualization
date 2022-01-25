@@ -11,7 +11,7 @@ First things first: We always start with loading all the relevant packages. It i
 
 ```{r}
 # Insert your code here!
-library(tidyverse)
+
 ```
 
 ## The data
@@ -21,8 +21,7 @@ For this hands-on session we will have a look at the bicycle data of the city of
 
 ```{r}
 # Insert your code here!
-readr::read_delim('https://offenedaten-konstanz.de/sites/default/files/Z%C3%A4hlstelle_Heros%C3%A9_2020_Wetter_st%C3%BCndlich.csv', 
-                  delim = ";", 
+readr::read_delim(delim = ";", 
                   escape_double = FALSE, 
                   trim_ws = TRUE) -> bikes
 ```
@@ -109,17 +108,17 @@ First, we start with a simple **line plot**: How many bikes are passing the bike
 
 ```{r}
 # Insert your code here!
-bikes_days %>%
-  ggplot2::ggplot(mapping = aes(x = day, 
-                                y = num_total)) +
-  geom_line() +
-  geom_smooth(se = FALSE) +
-  theme_minimal() +
-  labs(x = "Date", 
-       y = "Number of cyclists",
-       title = "Cyclists passing the bicycle bridge in Konstanz",
-       subtitle = "Total number per day",
-       caption = "Source: OpenData Konstanz (2022)")
+
+
+
+
+
+
+
+
+
+
+
 ```
 
 
@@ -134,22 +133,22 @@ Kind of obvious, but is there a perfect correlation between bikes going out of t
 
 ```{r}
 # Insert your code here!
-bikes_days %>%
-  dplyr::mutate(
-    temp_high = factor(ifelse(temp > 15, 1, 0))
-  ) %>%
-  ggplot(mapping = aes(x = num_in, 
-                       y = num_out, 
-                       col = temp_high)) +
-  geom_point() +
-  theme_minimal() +
-  scale_color_manual(values = c('blue', 'red'), labels = c('<=15°C', '>15°C')) +
-  labs(x = "number of cyclists in the direction of the city center", 
-       y = "number of cyclists in the direction out of town",
-       title = "Cyclists passing the bicycle bridge in Konstanz",
-       subtitle = "Relation of the number of cyclists going in the direction of the city center\nand those going out of town",
-       caption = "Source: OpenData Konstanz (2022)",
-       color = 'temperature') 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
 ```
 
 
@@ -165,45 +164,46 @@ Second, we want to know which is the month with most of rain at the bike bridge 
 
 ```{r}
 # Insert your code here!
-# data cleaning and preprocessing
-bikes_days %>% 
-  dplyr::mutate(
-    year = lubridate::year(day), 
-    month = lubridate::month(day), 
-    day = lubridate::day(day),
-    .keep = 'unused'
-  ) %>%
-  dplyr::group_by(month) %>%
-  dplyr::summarize(num_total = sum(num_total, na.rm = TRUE),
-                   num_in = sum(num_in, na.rm = TRUE),
-                   num_out = sum(num_out, na.rm = TRUE),
-                   temp = mean(temp, na.rm = TRUE),
-                   rain = sum(rain, na.rm = TRUE)) %>%
 
-  # actual plotting of the data
-  ggplot2::ggplot(mapping = aes(x = month, 
-                                y = rain)) +
-  geom_col(fill = 'blue')  +
-  theme_minimal() +
-  scale_x_continuous(breaks = c(1:12),
-                     labels = c('January',
-                                'February',
-                                'March',
-                                'April', 
-                                'May',
-                                'June',
-                                'July',
-                                'August',
-                                'September',
-                                'October',
-                                'November',
-                                'December')) +
-  theme(axis.text.x = element_text(angle = 90)) +
-  labs(x = "Month", 
-       y = "Total rain (millimeter)",
-       title = "Rainfall in Konstanz",
-       subtitle = "Total amount of rainfall per month in millimeters",
-       caption = "Source: OpenData Konstanz (2022)")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ```
 
 
