@@ -149,40 +149,41 @@ Now, start creating some plots yourself. Again, we want to display the years on 
 
 ```{r}
 # Bar plot
-aiddata_yearly %>% 
-  ggplot(mapping = aes(x = commitment_year, 
-                       y = amount_bn_total)) +
-  geom_col()
+
+
+
+
+
 
 # Scatterplot
-aiddata_yearly %>% 
-  ggplot(mapping = aes(x = commitment_year, 
-                       y = amount_bn_total)) +
-  geom_point() 
+
+
+
+
 
 # Line plot
-aiddata_yearly %>% 
-  ggplot(mapping = aes(x = commitment_year, 
-                       y = amount_bn_total)) +
-  geom_point() +
-  geom_line() +
-  geom_smooth(se = FALSE)
+
+
+
+
+
+
 ```
 
 If you have finished early, feel free to play around with some other geometric shapes. To have a glimpse at all the possibilities ggplot2 offers, take a look at the 'Cheatsheet' provided in the folder.
 
 ```{r}
 # Maybe step plot could be a handy visualization for the association between year and project number?
-aiddata_yearly %>% 
-  ggplot(mapping = aes(x = commitment_year, 
-                       y = n_projects)) +
-  geom_step()
+
+
+
+
 
 # Maybe an area plot could be an alternative to the line plot for displaying the changes in the amount of aid transfers over time? 
-aiddata_yearly %>% 
-  ggplot(mapping = aes(x = commitment_year, 
-                       y = amount_bn_total)) +
-  geom_area()
+
+
+
+
 
 ```
 
@@ -286,27 +287,27 @@ Please create a bar plot with `geom_col()` that, analogously to the plot above, 
 ```{r}
 aiddata_red %>% 
 # First, specify the aesthetics to be displayed in the plot
-  ggplot(aes(x = commitment_year,
-             y = amount_bn,
-             fill = sector)) + 
+  
+  
+   
 # Specify the geometric shape to be used for the plot (bar plot)
-  geom_col() + 
+  
 # Now, specify the axis titles (x and y) as well as title, subtitle and caption (careful: now the colors no longer represent regions, but the sector of the aid transfer)
-  labs(x = "Year",
-       y = "Aid (in billion 2017 US$)",
-       title = "Chinese development financing",
-       subtitle = "By sector between 2000 and 2017",
-       caption = "Source: AidData (2021)") +
+  
+  
+  
+  
+
 # Select a theme that builds the basis for our polishing
-  theme_minimal() +
+  
 # Now, refine the look of the title, the subtitle and the axis titles (hint: 'axis.title ='), omit the legend title and place the legend at the bottom of the plot
-  theme(plot.title = element_text(face = "bold", size = 30), 
-        plot.subtitle = element_text(face = "italic", size = 15),
-        legend.title = element_blank(), 
-        legend.position = "bottom",
-        axis.title = element_text(face = "bold")) + 
+  
+
+
+
+
 # Last but not least, set the number of rows in the legend to two
-  guides(fill = guide_legend(nrow = 2)) 
+  
 ```
 
 If you have finished early, feel free to explore and modify some extra themes that are provided by the `ggthemes`-package such as `theme_wsj()`, `theme_economist()` or `theme_fivethirtyeight()`.
@@ -332,26 +333,6 @@ aiddata_red %>%
         axis.title = element_text(face = "bold")) + 
   guides(fill = guide_legend(nrow = 2))
 
-# Possible solution
-aiddata_red %>% 
- ggplot(aes(x = commitment_year,
-             y = amount_bn,
-             fill = sector)) + 
-  geom_col() + 
-  labs(x = "Year",
-       y = "Aid (in billion 2017 US$)",
-      title = "Chinese development financing",
-       subtitle = "By sector between 2000 and 2017",
-       caption = "Source: AidData (2021)") +
-  theme_wsj() +
-  theme(plot.title = element_text(face = "bold", size = 25), 
-        plot.subtitle = element_text(face = "italic", size = 10),
-        plot.caption = element_text(size = 8),
-        legend.title = element_blank(), 
-        legend.position = "bottom",
-        legend.text = element_text(size = 6),
-        axis.title = element_text(face = "bold", size = 8)) + 
-  guides(fill = guide_legend(nrow = 2))
 ```
 
 # 4. Altering scales
@@ -450,13 +431,13 @@ aiddata_red %>%
        subtitle = "Development aid by region between 2010 and 2017", 
        caption = "Source: AidData (2021)") +
 # Our x-axis is based on a date-time scale. Thus we need to use scale_x_date(). Specify it, so that date_breaks represent one year and the date_labels indicate only the year
-  scale_x_date(date_breaks = "1 year",  
-               date_labels = "%Y") + 
+  
+   
 # Our y-axis is based on a continuous scale, namely the amount of financial aid in billion. Define it, so that we have 6 breaks on a scale from 0 to 10
-   scale_y_continuous(n.breaks = 6, 
-                     limits = c(0, 10)) +
+   
+  
 # Now, we want to manually adapt the color scale. We want to do this by using the `RColorBrewer`-package and it's palette called "Set1". CAREFUL, we have used the "color ="-argument above, wherefore "scale_fill_brewer()" doesn't work anymore
-   scale_color_brewer(palette = "Set1") +
+
   theme_minimal() +
   theme(plot.title = element_text(face = "bold", 
                                   size = 30), 
@@ -466,40 +447,6 @@ aiddata_red %>%
         legend.position = "bottom") + 
   guides(color = guide_legend(nrow = 1))
 
-# Possible solution
-aiddata_red %>%
-  filter(intent == "Development", 
-         region != "Multi-Region", 
-         commitment_year >= "2010-01-01") %>%
-  group_by(commitment_year, region) %>%
-  summarise(amount_bn_dev = sum(amount_bn)) %>%
-# Here begins the actual plotting
-  ggplot(aes(x = commitment_year,
-             y = amount_bn_dev,
-             color = region)) + 
-  geom_point() +
-  geom_line() + 
-  labs(x = "Year",
-       y = "Aid (in billion 2017 US$)",
-       title = "Chinese development financing",
-       subtitle = "Development aid by region between 2010 and 2017", 
-       caption = "Source: AidData (2021)") +
-# Our x-axis is based on a date-time scale. Thus we need to use scale_x_date(). Specify it, so that date_breaks represent one year and the date_labels indicate only the year
-  scale_x_date(date_breaks = "1 year",  
-               date_labels = "%Y") + 
-# Our y-axis is based on a continuous scale, namely the amount of financial aid in billion. Define it, so that we have 6 breaks on a scale from 0 to 10
-   scale_y_continuous(n.breaks = 6, 
-                     limits = c(0, 10)) +
-# Now, we want to manually adapt the color scale. We want to do this by using the `RColorBrewer`-package and it's palette called "Set1". CAREFUL, we have used the "color ="-argument above, wherefore "scale_fill_brewer()" doesn't work anymore
-   scale_color_brewer(palette = "Set1") +
-  theme_minimal() +
-  theme(plot.title = element_text(face = "bold", 
-                                  size = 30), 
-        plot.subtitle = element_text(face = "italic", 
-                                     size = 15), 
-        legend.title = element_blank(), 
-        legend.position = "bottom") + 
-  guides(color = guide_legend(nrow = 1))
 ```
 
 The styling we we have resorted to for our plotting today is just one out of infinite options for how to make your data visually appealing. In the following you might want to try to develop your very own style. 
