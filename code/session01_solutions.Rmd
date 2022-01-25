@@ -1,7 +1,7 @@
 ---
 title: "Data Visualization with R"
 authors: "Valentin Geier & Zoé Wolter"
-date: "Jan 26, 2022"
+date: "Jan 25, 2022"
 output: html_document
 ---
 
@@ -37,7 +37,7 @@ aiddata_preprocessed <- read_csv(here::here("data/AidData_CDF_2021_preprocessed.
 
 # 1.3 First glimpse at the data
 
-Executed the following three commands provides us with a first glimpse at the data and its structure.
+Executing the following three commands provides us with a first glimpse at the data and its structure.
 
 ```{r}
 head(aiddata_preprocessed)
@@ -308,6 +308,7 @@ aiddata_red %>%
 # Last but not least, set the number of rows in the legend to two
   guides(fill = guide_legend(nrow = 2)) 
 ```
+
 If you have finished early, feel free to explore and modify some extra themes that are provided by the `ggthemes`-package such as `theme_wsj()`, `theme_economist()` or `theme_fivethirtyeight()`.
 Below, switching from `theme_minimal` to `theme_wsj` has totally messed up the plot. Can you find a way to modify the code in such a way, that it looks decent again?
 Hint: besides altering the given functions, also take a look at `plot-caption =` and `legend.text =` (and how to alter text sizes there).
@@ -428,7 +429,6 @@ aiddata_red %>%
 
 In the plot below, we aim to visualize over-time variance in financing activities that have a clear-cut development `intent` between 2010 and 2017 by `region`.
 Currently, however, both the x- and the y-axis are not appropriately scaled yet. Furthermore, a more concise color pattern suited for qualitative scales such as different regions would improve our plot as well. Try to improve the visualization based on the following code chunk by adding properly specified `scale_x_date()`-, `scale_y_continuous()` and ` scale_color_brewer()`-commands.
-
 
 ```{r}
 # We need some minor prior data wrangling to have the data ready for our desired plot
