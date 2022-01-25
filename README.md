@@ -5,7 +5,7 @@
 Welcome to our workshop on **data visualization with R**!
 
 ## Download
-- You can download all the material for the workshop [here](https://github.com/ZoeWolter/CorrelAidXKonstanz-DataVisualization/archive/main.zip).
+- You can download all the material for the workshop [here](https://github.com/CorrelAid/correlaidx-kn-datavisualization/archive/main.zip).
 - Unzip the folder and store it in the folder you want to have your R project in.
 - Open the R project via the file *data-visualization.Rproj*
 
