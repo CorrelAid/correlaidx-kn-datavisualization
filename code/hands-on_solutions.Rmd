@@ -1,7 +1,7 @@
 ---
 title: "Data Visualization with R - Hands-On"
 author: "Valentin Geier, Zoé Wolter"
-date: "Jan 25, 2022"
+date: "July 12, 2022"
 output: html_document
 ---
 

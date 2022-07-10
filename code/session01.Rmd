@@ -1,7 +1,7 @@
 ---
 title: "Data Visualization with R"
 authors: "Valentin Geier & Zoé Wolter"
-date: "Jan 25, 2022"
+date: "July 12, 2022"
 output: html_document
 ---
 
@@ -377,7 +377,7 @@ As we have seen so far, when we specify colors in the `aes`-function (in our cas
 
 Two famous coloring packages are `RColorBrewer` and `viridisLite` which provide color palettes that are designed for different purposes and data types (such as discrete vs. continuous variables). `RColorBrewer` even comes along with a website (https://colorbrewer2.org/) that helps us find the appropriate color palette for our visualization attempt. The two packages are put to use by replacing `scale_color_manual`/`scale_fill_manual` with `scale_color_brewer`/`scale_fill_brewer` or `scale_color_viridis`/`scale_fill_viridis`. 
 
-In the following, we have used `RColorBrewer` and a color palette that, thanks to its contrasts, is especially suitable for qualitative scales ("Set1").
+In the following, we have used `RColorBrewer` and a color palette that, thanks to its contrasts, is especially suitable for qualitative scales ("Accent").
 
 ```{r}
 aiddata_red %>% 
@@ -395,7 +395,7 @@ aiddata_red %>%
                expand = expansion(mult = c(0.01, 0.01))) + 
   scale_y_continuous(n.breaks = 5, 
                      limits = c(0, 125)) +
-  scale_fill_brewer(palette = "Set1") +
+  scale_fill_brewer(palette = "Accent") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold", 
                                   size = 30), 
@@ -447,6 +447,46 @@ aiddata_red %>%
         legend.position = "bottom") + 
   guides(color = guide_legend(nrow = 1))
 
+```
+
+# 5. Saving and exporting plots
+
+One last crucial step is to save and export your plot for later use in presentations, essays, or term papers. The `ggsave()`-function provided by the `ggplot2`-package comes in really handy in that regard. I.a. it allows us to store our plots in different file formats, ranging from "pdf" and "jpeg" to "svg". Storing our plot as a "svg" (~ scalable vector graphic) should generally be the preferred option as these files can be scaled in size without loss of quality.
+
+```{r}
+# First of all, we have to save our plot as an object in R.
+aiddata_plot <-
+  aiddata_red %>% 
+  ggplot(aes(x = commitment_year,
+             y = amount_bn,
+             fill = region,
+             color = region)) + 
+  geom_col() + 
+  labs(x = "Year",
+       y = "Aid (in billion 2017 US$)",
+       title = "Chinese development financing",
+       subtitle = "By region between 2000 and 2017", 
+       caption = "Source: AidData (2021)") +
+  scale_x_date(date_breaks = "1 year",  
+               date_labels = "%Y", 
+               expand = expansion(mult = c(0.01, 0.01))) + 
+  scale_y_continuous(n.breaks = 5, 
+                     limits = c(0, 125)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_color_brewer(palette = "Accent") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold", 
+                                  size = 30), 
+        plot.subtitle = element_text(face = "italic", 
+                                     size = 15), 
+        legend.title = element_blank(), 
+        legend.position = "bottom") + 
+  guides(fill = guide_legend(nrow = 1))
+
+# We now have a list object called "aiddata_plot" saved in our environment that we can easily export using `ggsave()`
+ggsave(filename = "aiddata_plot.svg", # First, we specify the filename (notice the ".svg" in the end).
+       plot = aiddata_plot, + # Here we choose which plot we want to export.
+       device = "svg") # And lastly we choose the the device/filetype.
 ```
 
 The styling we we have resorted to for our plotting today is just one out of infinite options for how to make your data visually appealing. In the following you might want to try to develop your very own style. 
