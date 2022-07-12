@@ -485,7 +485,7 @@ aiddata_plot <-
 
 # We now have a list object called "aiddata_plot" saved in our environment that we can easily export using `ggsave()`
 ggsave(filename = "aiddata_plot.svg", # First, we specify the filename (notice the ".svg" in the end).
-       plot = aiddata_plot, + # Here we choose which plot we want to export.
+       plot = aiddata_plot, # Here we choose which plot we want to export.
        device = "svg") # And lastly we choose the the device/filetype.
 ```
 
